@@ -1,0 +1,25 @@
+{
+  "name": "property-accessor",
+  "version": "1.0.0",
+  "description": "Proxy object which get access to target property with string key which contains full path to it (f.e. 'users[0].firstName')",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Lazunko/property-accessor.git"
+  },
+  "keywords": [
+    "Javascript",
+    "property",
+    "accessor",
+    "proxy"
+  ],
+  "author": "Paul Lazunko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Paul-Lazunko/property-accessor/issues"
+  },
+  "homepage": "https://github.com/Paul-Lazunko/property-accessor#readme"
+}
