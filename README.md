@@ -32,7 +32,7 @@ Retrieves a value from the object using a dot/bracket notation path.
 
 ### `PropertyAccessor.set(key: string, value: any, target: any): boolean`
 
-Sets a value at the given path. Returns `true` on success, `false` otherwise. 
+Sets a value at the given path. Returns `true` on success, `false` otherwise.
 **Automatically creates nested objects and arrays as needed**.
 
 - **Parameters:**
@@ -50,8 +50,8 @@ const { PropertyAccessor } = require('property-accessor');
 const target = {
   users: [
     { firstName: 'John', surName: 'Doe', age: 25 },
-    { firstName: 'Ann', surName: 'Doe', age: 23 }
-  ]
+    { firstName: 'Ann', surName: 'Doe', age: 23 },
+  ],
 };
 
 console.log(PropertyAccessor.get('users[0].firstName', target));

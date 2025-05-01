@@ -17,7 +17,7 @@
     "paths": {
       "@const": ["src/constants"],
       "@helpers": ["src/helpers"],
-      "@library": ["src/library"],
+      "@library": ["src/library"]
     }
   },
   "include": ["src/**/*"]

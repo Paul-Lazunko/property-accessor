@@ -1,19 +1,18 @@
 import { validatePath } from '@helpers';
 
 export class PropertyAccessor {
-
   protected target: any;
 
   constructor(target: any) {
     this.target = target;
   }
-   public  get(key: string) {
+  public get(key: string) {
     return PropertyAccessor.get(key, this.target);
-   }
+  }
 
-   public set(key: string, value: any) {
-     return PropertyAccessor.set(key, value, this.target);
-   }
+  public set(key: string, value: any) {
+    return PropertyAccessor.set(key, value, this.target);
+  }
 
   static get(path: string, src: any): any {
     if (!src) {

@@ -7,15 +7,15 @@ const target = {
       b: [
         {
           c: 'd',
-          e: 1
+          e: 1,
         },
         {
           f: 'g',
-          h: 2
-        }
-      ]
-    }
-  ]
+          h: 2,
+        },
+      ],
+    },
+  ],
 };
 
 assert.equal(PropertyAccessor.get('a[0]b[0].c', target), 'd');
@@ -26,7 +26,7 @@ assert.equal(PropertyAccessor.set('a[0]b[5].f', 3, target), true);
 assert.equal(PropertyAccessor.set('a[1]b.c.d.f', 3, target), true);
 assert.equal(PropertyAccessor.get('a[0]b.length', target), 6);
 
-const propertyAccessor = new PropertyAccessor({ a: [ { b: 2 }]});
+const propertyAccessor = new PropertyAccessor({ a: [{ b: 2 }] });
 
 assert.equal(propertyAccessor.get('a[0].b'), 2);
 assert.equal(propertyAccessor.set('a[0].c', 3), true);
