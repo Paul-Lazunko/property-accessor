@@ -1,4 +1,5 @@
 # Property Accessor
+#### [Changelog](./CHANGELOG.md)
 
 This utility provides methods to **evaluate and manipulate deeply nested properties** of objects using string-based paths like:
 
