@@ -43,6 +43,15 @@ Sets a value at the given path. Returns `true` on success, `false` otherwise.
 
 ---
 
+### `PropertyAccessor.flat(target: any): any`
+
+Returns flat object based on target.
+
+- **Parameters:**
+  - `target` (`object`): The target object
+
+---
+
 ## Usage Example
 
 ```js
@@ -76,6 +85,8 @@ For backward compatibility, you can also create an instance and bind a specific 
 ```js
 const propertyAccessor = new PropertyAccessor({ a: [{ b: 3 }] });
 propertyAccessor.set('a[1].b', 4);
+propertyAccessor.get('a[1].b');
+propertyAccessor.flat();
 ```
 
 ---
