@@ -1,4 +1,4 @@
-import { validatePath } from '@helpers';
+import { flatKeyHelper, validatePath } from '@helpers';
 
 export class PropertyAccessor {
   protected target: any;
@@ -12,6 +12,10 @@ export class PropertyAccessor {
 
   public set(key: string, value: any) {
     return PropertyAccessor.set(key, value, this.target);
+  }
+
+  public flat() {
+    return PropertyAccessor.flat(this.target);
   }
 
   static get(path: string, src: any): any {
@@ -67,5 +71,11 @@ export class PropertyAccessor {
       }
     }
     return true;
+  }
+
+  static flat(target: any): any {
+    const flat: Record<string, any> = {};
+    flatKeyHelper(target, flat);
+    return flat;
   }
 }
