@@ -8,7 +8,7 @@ export function flatKeyHelper(source: any, accumulator: any, prefix: string = ''
     }
   } else {
     for (const key in source) {
-      const property = `${prefix}.${key}`;
+      const property = prefix ?  `${prefix}.${key}` : key;
       flatKeyHelper(source[key], accumulator, property);
     }
   }
