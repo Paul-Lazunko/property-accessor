@@ -72,20 +72,52 @@ export class PropertyAccessor {
   }
 
   static parsePath(path: string): string[] {
-    if (
-      (!path.includes('.') && !path.includes('[')) ||
-      (!path.includes('[') && /^\d+\.\d+$/.test(path))
-    ) {
-      return [path];
-    }
-
     const parts: string[] = [];
-    const regex = /[^.[\]]+/g;
-    let match;
-    while ((match = regex.exec(path)) !== null) {
-      parts.push(match[0]);
+    let buffer: string = '';
+    let insideBracket: boolean = false;
+
+    for (let i = 0; i < path.length; i++) {
+      const char: string = path[i];
+
+      if (char === '.' && !insideBracket) {
+        if (buffer !== '') {
+          parts.push(buffer);
+          buffer = '';
+        }
+      } else if (char === '[') {
+        if (buffer !== '') {
+          parts.push(buffer);
+          buffer = '';
+        }
+        insideBracket = true;
+      } else if (char === ']') {
+        if (buffer !== '') {
+          parts.push(buffer);
+          buffer = '';
+        }
+        insideBracket = false;
+      } else {
+        buffer += char;
+      }
     }
 
-    return parts;
+    if (buffer !== '') {
+      parts.push(buffer);
+    }
+
+    const mergedParts: string[] = [];
+    for (let i = 0; i < parts.length; i++) {
+      const cur: string = parts[i];
+      const next: string = parts[i + 1];
+
+      if (next && /^\d+$/.test(cur) && /^\d+$/.test(next)) {
+        mergedParts.push(`${cur}.${next}`);
+        i++;
+      } else {
+        mergedParts.push(cur);
+      }
+    }
+    return mergedParts;
   }
+
 }
