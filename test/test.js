@@ -30,5 +30,8 @@ const propertyAccessor = new PropertyAccessor({ a: [{ b: 2 }] });
 
 assert.equal(propertyAccessor.get('a[0].b'), 2);
 assert.equal(propertyAccessor.set('a[0].c', 3), true);
-
+assert.equal(propertyAccessor.get('a[0].c'), 3);
+assert.equal(propertyAccessor.set('a[0].23',1), true);
+assert.equal(propertyAccessor.get('a[0].23'), 1);
+console.log(propertyAccessor.flat())
 console.log('tests passed');
