@@ -6,11 +6,11 @@ export class PropertyAccessor {
   constructor(target: any) {
     this.target = target;
   }
-  public get(key: string) {
+  public get(key: string): any {
     return PropertyAccessor.get(key, this.target);
   }
 
-  public set(key: string, value: any) {
+  public set(key: string, value: any): any {
     return PropertyAccessor.set(key, value, this.target);
   }
 
