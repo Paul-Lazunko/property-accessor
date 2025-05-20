@@ -6,7 +6,6 @@ export class PropertyAccessor {
   constructor(target: any) {
     this.target = target;
   }
-
   public get(key: string) {
     return PropertyAccessor.get(key, this.target);
   }
@@ -29,39 +28,48 @@ export class PropertyAccessor {
     if (!validatePath(path)) {
       return;
     }
-
-    const keys = PropertyAccessor.parsePath(path);
-    return keys.reduce((acc: any, key: string) => {
-      if (acc === undefined || acc === null) return;
-      acc = acc[key];
+    return path.split('.').reduce((acc: string, part: string) => {
+      if (acc === undefined || acc === null) {
+        return;
+      }
+      const parts: string[] = part.split(/[\[\]]/).filter(Boolean);
+      for (const part of parts) {
+        acc = acc?.[part as any];
+        if (acc === undefined) {
+          return;
+        }
+      }
       return acc;
     }, src);
   }
 
   static set(path: string, value: any, src: any): boolean {
-    if (!src || !path || !validatePath(path)) {
+    if (!src) {
+      return;
+    }
+    if (!path) {
       return false;
     }
-
-    const keys = PropertyAccessor.parsePath(path);
+    if (!validatePath(path)) {
+      return false;
+    }
+    const keys = path.split('.');
     let target = src;
-
     for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      const isLast = i === keys.length - 1;
-
-      if (isLast) {
-        target[key] = value;
-      } else {
-        if (typeof target[key] !== 'object' || target[key] === null) {
-          // Determine if the next key is numeric → assume array
-          const nextKey = keys[i + 1];
-          target[key] = /^\d+$/.test(nextKey) ? [] : {};
+      const parts = keys[i].split(/[\[\]]/).filter(Boolean);
+      for (let j = 0; j < parts.length; j++) {
+        const key = parts[j];
+        const isLastKey = i === keys.length - 1 && j === parts.length - 1;
+        if (isLastKey) {
+          target[key] = value;
+        } else {
+          if (!target[key] || typeof target[key] !== 'object') {
+            target[key] = /^\d+$/.test(parts[j + 1] || '') ? [] : {};
+          }
+          target = target[key];
         }
-        target = target[key];
       }
     }
-
     return true;
   }
 
@@ -69,23 +77,5 @@ export class PropertyAccessor {
     const flat: Record<string, any> = {};
     flatKeyHelper(target, flat);
     return flat;
-  }
-
-  static parsePath(path: string): string[] {
-    if (
-      (!path.includes('.') && !path.includes('[')) ||
-      (!path.includes('[') && /^\d+\.\d+$/.test(path))
-    ) {
-      return [path];
-    }
-
-    const parts: string[] = [];
-    const regex = /[^.[\]]+/g;
-    let match;
-    while ((match = regex.exec(path)) !== null) {
-      parts.push(match[0]);
-    }
-
-    return parts;
   }
 }
