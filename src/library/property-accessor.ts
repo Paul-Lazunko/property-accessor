@@ -14,6 +14,10 @@ export class PropertyAccessor {
     return PropertyAccessor.set(key, value, this.target);
   }
 
+  public delete(key: string) {
+    return PropertyAccessor.delete(key, this.target);
+  }
+
   public flat() {
     return PropertyAccessor.flat(this.target);
   }
@@ -62,6 +66,36 @@ export class PropertyAccessor {
         const isLastKey = i === keys.length - 1 && j === parts.length - 1;
         if (isLastKey) {
           target[key] = value;
+        } else {
+          if (!target[key] || typeof target[key] !== 'object') {
+            target[key] = /^\d+$/.test(parts[j + 1] || '') ? [] : {};
+          }
+          target = target[key];
+        }
+      }
+    }
+    return true;
+  }
+
+  static delete(path: string, src: any): boolean {
+    if (!src) {
+      return;
+    }
+    if (!path) {
+      return false;
+    }
+    if (!validatePath(path)) {
+      return false;
+    }
+    const keys = path.split('.');
+    let target = src;
+    for (let i = 0; i < keys.length; i++) {
+      const parts = keys[i].split(/[\[\]]/).filter(Boolean);
+      for (let j = 0; j < parts.length; j++) {
+        const key = parts[j];
+        const isLastKey = i === keys.length - 1 && j === parts.length - 1;
+        if (isLastKey) {
+          delete target[key];
         } else {
           if (!target[key] || typeof target[key] !== 'object') {
             target[key] = /^\d+$/.test(parts[j + 1] || '') ? [] : {};
