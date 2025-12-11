@@ -31,6 +31,16 @@ Retrieves a value from the object using a dot/bracket notation path.
 
 ---
 
+### `PropertyAccessor.delete(key: string): boolean`
+
+Removes a value from the object using a dot/bracket notation path.
+
+- **Parameters:**
+  - `key` (`string`): Property path (e.g. `"prop1.prop2[0]['name']"`)
+  - `target` (`object`): The target object to evaluate
+
+---
+
 ### `PropertyAccessor.set(key: string, value: any, target: any): boolean`
 
 Sets a value at the given path. Returns `true` on success, `false` otherwise.
