@@ -18,8 +18,8 @@ export class PropertyAccessor {
     return PropertyAccessor.delete(key, this.target);
   }
 
-  public flat() {
-    return PropertyAccessor.flat(this.target);
+  public flat(spaceReplacer?: string) {
+    return PropertyAccessor.flat(this.target, spaceReplacer);
   }
 
   static get(path: string, src: any): any {

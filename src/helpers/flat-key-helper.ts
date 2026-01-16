@@ -4,7 +4,7 @@ export function flatKeyHelper(source: any, accumulator: any, prefix: string = ''
   } else if (Array.isArray(source)) {
     for (let i = 0; i < source.length; i++) {
       const property = `${prefix ? (spaceReplacer ? prefix.replace(/\s/g, spaceReplacer) : prefix) : ''}[${i}]`;
-      flatKeyHelper(source[i], accumulator, property);
+      flatKeyHelper(source[i], accumulator, property, spaceReplacer);
     }
   } else {
     for (const key in source) {
@@ -13,7 +13,7 @@ export function flatKeyHelper(source: any, accumulator: any, prefix: string = ''
           ? `${prefix.replace(/\s/g, spaceReplacer)}.${key}`
           : `${prefix}.${key}`
         : key;
-      flatKeyHelper(source[key], accumulator, property);
+      flatKeyHelper(source[key], accumulator, property, spaceReplacer);
     }
   }
 }
