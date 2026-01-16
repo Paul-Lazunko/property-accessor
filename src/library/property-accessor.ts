@@ -107,9 +107,9 @@ export class PropertyAccessor {
     return true;
   }
 
-  static flat(target: any): any {
+  static flat(target: any, spaceReplacer?: string): any {
     const flat: Record<string, any> = {};
-    flatKeyHelper(target, flat);
+    flatKeyHelper(target, flat, '', spaceReplacer);
     return flat;
   }
 }

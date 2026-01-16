@@ -5,17 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.0] - 2026-01-16
+
+### Added
+
+- Added spaceReplacer to flatKeyHelper and flat method (to replace space characters)
+
 ## [2.4.0] - 2025-12-11
 
 ### Added
 
-- Added delete method (both static and instance) 
+- Added delete method (both static and instance)
 
 ## [2.3.0] - 2025-05-20
 
 ### Fixed
 
-- Decided to don't deal with float-like keys, since it is not possible to clarify parsing strategy for some cases 
+- Decided to don't deal with float-like keys, since it is not possible to clarify parsing strategy for some cases
 
 ## [2.2.0] - 2025-05-19
 

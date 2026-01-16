@@ -1,6 +1,6 @@
 {
   "name": "property-accessor",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "This package evaluates path to nested object properties like 'prop1[0].prop2[9]['name']' and returns value ",
   "keywords": [
     "proxy",

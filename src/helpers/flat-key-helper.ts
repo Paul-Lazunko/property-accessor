@@ -1,14 +1,18 @@
-export function flatKeyHelper(source: any, accumulator: any, prefix: string = '') {
+export function flatKeyHelper(source: any, accumulator: any, prefix: string = '', spaceReplacer?: string) {
   if (typeof source !== 'object') {
     accumulator[prefix] = source;
   } else if (Array.isArray(source)) {
-    for (let i=0; i < source.length; i++) {
-      const property = `${prefix}[${i}]`;
+    for (let i = 0; i < source.length; i++) {
+      const property = `${prefix ? (spaceReplacer ? prefix.replace(/\s/g, spaceReplacer) : prefix) : ''}[${i}]`;
       flatKeyHelper(source[i], accumulator, property);
     }
   } else {
     for (const key in source) {
-      const property = prefix ?  `${prefix}.${key}` : key;
+      const property = prefix
+        ? spaceReplacer
+          ? `${prefix.replace(/\s/g, spaceReplacer)}.${key}`
+          : `${prefix}.${key}`
+        : key;
       flatKeyHelper(source[key], accumulator, property);
     }
   }
