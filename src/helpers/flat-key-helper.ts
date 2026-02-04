@@ -10,7 +10,7 @@ export function flatKeyHelper(source: any, accumulator: any, prefix: string = ''
     for (const key in source) {
       const property = prefix
         ? spaceReplacer
-          ? `${prefix.replace(/\s/g, spaceReplacer)}.${key}`
+          ? `${prefix.replace(/\s/g, spaceReplacer)}.${key.replace(/\s/g, spaceReplacer)}`
           : `${prefix}.${key}`
         : key;
       flatKeyHelper(source[key], accumulator, property, spaceReplacer);
