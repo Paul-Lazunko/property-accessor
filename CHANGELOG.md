@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0] - 2026-02-12
+
+### Fixed
+
+- Path validation
+- Set for empty arrays and objects as value
+
 ## [2.5.1] - 2026-02-04
 
 ### Fixed
