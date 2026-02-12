@@ -1,4 +1,4 @@
-import { flatKeyHelper, validatePath } from '@helpers';
+import { flatKeyHelper, validatePath, walk } from '@helpers';
 
 export class PropertyAccessor {
   protected target: any;
@@ -106,5 +106,11 @@ export class PropertyAccessor {
     const flat: Record<string, any> = {};
     flatKeyHelper(target, flat, '', spaceReplacer);
     return flat;
+  }
+
+  static collectKeys(basePath: string, value: any): string[] {
+    const result: string[] = [];
+    walk(basePath, value, result);
+    return result;
   }
 }
