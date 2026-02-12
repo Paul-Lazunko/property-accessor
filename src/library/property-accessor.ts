@@ -48,13 +48,7 @@ export class PropertyAccessor {
   }
 
   static set(path: string, value: any, src: any): boolean {
-    if (!src) {
-      return;
-    }
-    if (!path) {
-      return false;
-    }
-    if (!validatePath(path)) {
+    if (!src || !path || !validatePath(path)) {
       return false;
     }
     const keys = path.split('.');
@@ -63,15 +57,16 @@ export class PropertyAccessor {
       const parts = keys[i].split(/[\[\]]/).filter(Boolean);
       for (let j = 0; j < parts.length; j++) {
         const key = parts[j];
-        const isLastKey = i === keys.length - 1 && j === parts.length - 1;
-        if (isLastKey) {
+        const isLast = i === keys.length - 1 && j === parts.length - 1;
+        if (isLast) {
           target[key] = value;
-        } else {
-          if (!target[key] || typeof target[key] !== 'object') {
-            target[key] = /^\d+$/.test(parts[j + 1] || '') ? [] : {};
-          }
-          target = target[key];
+          return true;
         }
+        if (target[key] === undefined || target[key] === null || typeof target[key] !== 'object') {
+          const next = parts[j + 1] ?? keys[i + 1]?.split(/[\[\]]/)[0];
+          target[key] = /^\d+$/.test(next || '') ? [] : {};
+        }
+        target = target[key];
       }
     }
     return true;
