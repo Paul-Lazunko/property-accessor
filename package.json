@@ -21,23 +21,18 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "20.10.6",
-    "@types/prettier": "2.6.0",
-    "@types/uuid": "10.0.0",
-    "@typescript-eslint/eslint-plugin": "6.17.0",
-    "@typescript-eslint/parser": "6.17.0",
-    "eslint": "8.47.0",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "24.13.1",
+    "@types/prettier": "3.0.0",
+    "@typescript-eslint/eslint-plugin": "8.62.0",
+    "@typescript-eslint/parser": "8.62.0",
+    "eslint": "10.5.0",
     "husky": "3.0.0",
-    "prettier": "3.3.3",
-    "prettier-plugin-multiline-arrays": "3.0.6",
-    "ts-node": "10.9.2",
-    "tsc-alias": "1.8.10",
-    "typescript": "5.3.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run eslint"
-    }
+    "prettier": "3.8.4",
+    "prettier-plugin-multiline-arrays": "4.1.9",
+    "tsc-alias": "1.8.17",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.62"
   },
   "repository": {
     "type": "git",
