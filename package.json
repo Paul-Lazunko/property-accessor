@@ -14,8 +14,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc && tsc-alias && eslint src/**/*.ts{,x}",
     "eslint": "eslint src --ext .ts",
-    "prettier-check": "prettier . --check",
-    "prettier-write": "prettier . --write",
+    "format-check": "prettier . --check",
+    "format": "prettier . --write",
     "test": "node test/test.js",
     "prepare": "husky",
     "runtime": "node dist/index.js"
