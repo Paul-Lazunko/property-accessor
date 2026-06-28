@@ -17,6 +17,7 @@
     "prettier-check": "prettier . --check",
     "prettier-write": "prettier . --write",
     "test": "node test/test.js",
+    "prepare": "husky",
     "runtime": "node dist/index.js"
   },
   "dependencies": {},
@@ -27,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "8.62.0",
     "@typescript-eslint/parser": "8.62.0",
     "eslint": "10.5.0",
-    "husky": "3.0.0",
+    "husky": "9.1.7",
     "prettier": "3.8.4",
     "prettier-plugin-multiline-arrays": "4.1.9",
     "tsc-alias": "1.8.17",
