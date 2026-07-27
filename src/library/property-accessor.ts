@@ -1,4 +1,4 @@
-import { flatKeyHelper, validatePath, walk } from '@helpers';
+import { flatKeyHelper, splitPath, validatePath, walk } from '@helpers';
 
 export class PropertyAccessor {
   protected target: any;
@@ -32,18 +32,11 @@ export class PropertyAccessor {
     if (!validatePath(path)) {
       return;
     }
-    return path.split('.').reduce((acc: string, part: string) => {
+    return splitPath(path).reduce((acc: any, part: string) => {
       if (acc === undefined || acc === null) {
         return;
       }
-      const parts: string[] = part.split(/[\[\]]/).filter(Boolean);
-      for (const part of parts) {
-        acc = acc?.[part as any];
-        if (acc === undefined) {
-          return;
-        }
-      }
-      return acc;
+      return acc[part];
     }, src);
   }
 
@@ -51,23 +44,20 @@ export class PropertyAccessor {
     if (!src || !path || !validatePath(path)) {
       return false;
     }
-    const keys = path.split('.');
+    const parts = splitPath(path);
     let target = src;
-    for (let i = 0; i < keys.length; i++) {
-      const parts = keys[i].split(/[\[\]]/).filter(Boolean);
-      for (let j = 0; j < parts.length; j++) {
-        const key = parts[j];
-        const isLast = i === keys.length - 1 && j === parts.length - 1;
-        if (isLast) {
-          target[key] = value;
-          return true;
-        }
-        if (target[key] === undefined || target[key] === null || typeof target[key] !== 'object') {
-          const next = parts[j + 1] ?? keys[i + 1]?.split(/[\[\]]/)[0];
-          target[key] = /^\d+$/.test(next || '') ? [] : {};
-        }
-        target = target[key];
+    for (let i = 0; i < parts.length; i++) {
+      const key = parts[i];
+      const isLast = i === parts.length - 1;
+      if (isLast) {
+        target[key] = value;
+        return true;
       }
+      if (target[key] === undefined || target[key] === null || typeof target[key] !== 'object') {
+        const next = parts[i + 1];
+        target[key] = /^\d+$/.test(next ?? '') ? [] : {};
+      }
+      target = target[key];
     }
     return true;
   }
@@ -82,21 +72,18 @@ export class PropertyAccessor {
     if (!validatePath(path)) {
       return false;
     }
-    const keys = path.split('.');
+    const parts = splitPath(path);
     let target = src;
-    for (let i = 0; i < keys.length; i++) {
-      const parts = keys[i].split(/[\[\]]/).filter(Boolean);
-      for (let j = 0; j < parts.length; j++) {
-        const key = parts[j];
-        const isLastKey = i === keys.length - 1 && j === parts.length - 1;
-        if (isLastKey) {
-          delete target[key];
-        } else {
-          if (!target[key] || typeof target[key] !== 'object') {
-            target[key] = /^\d+$/.test(parts[j + 1] || '') ? [] : {};
-          }
-          target = target[key];
+    for (let i = 0; i < parts.length; i++) {
+      const key = parts[i];
+      const isLast = i === parts.length - 1;
+      if (isLast) {
+        delete target[key];
+      } else {
+        if (!target[key] || typeof target[key] !== 'object') {
+          target[key] = /^\d+$/.test(parts[i + 1] || '') ? [] : {};
         }
+        target = target[key];
       }
     }
     return true;
