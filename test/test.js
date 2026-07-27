@@ -25,6 +25,10 @@ assert.equal(PropertyAccessor.get('a[0]b[2].f', target), undefined);
 assert.equal(PropertyAccessor.set('a[0]b[5].f', 3, target), true);
 assert.equal(PropertyAccessor.set('a[1]b.c.d.f', 3, target), true);
 assert.equal(PropertyAccessor.get('a[0]b.length', target), 6);
+assert.equal(PropertyAccessor.set('2026-07-18T17:00:00.000Z', 1, target), true);
+assert.equal(PropertyAccessor.get('2026-07-18T17:00:00.000Z', target), 1);
+assert.equal(PropertyAccessor.set('2026-07-18T13:00:00-04:00', 2, target), true);
+assert.equal(PropertyAccessor.get('2026-07-18T13:00:00-04:00', target), 2);
 
 const propertyAccessor = new PropertyAccessor({ a: [{ b: 2 }] });
 
