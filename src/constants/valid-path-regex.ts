@@ -1,1 +1,1 @@
-export const VALID_PATH_REGEX = /^\w+(?:\.\w+|\[(?:\d+|(['"])[^'"]+\1|[^\]]+)\])*/;
+export const VALID_PATH_REGEX: RegExp = /^\w+(?:\.\w+|\[(?:\d+|(['"])[^'"]+\1|[^\]]+)\])*/;
