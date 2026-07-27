@@ -1,3 +1,5 @@
+import { ISO_DATE_REGEXP } from '@const';
+
 export function splitPath(path: string): string[] {
   const parts: string[] = [];
   let current = '';
@@ -24,6 +26,11 @@ export function splitPath(path: string): string[] {
       i = end + 1;
     } else if (char === '.') {
       if (current) {
+        if (ISO_DATE_REGEXP.test(current)) {
+          current += char;
+          i++;
+          continue;
+        }
         parts.push(current);
         current = '';
       }
